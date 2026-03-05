@@ -48,32 +48,37 @@ During installation:
 
 ```sql
 CREATE DATABASE coffee_shop;
-...
+```
 
 ### 3️⃣ Use the Database
-...sql
+
+```sql
 USE coffee_shop;
-...
+```
 
 ### 4️⃣ Run the SQL Scripts
+
 Run the included SQL files to:
+
 - Create tables
 - Insert sample data
 - Perform analysis
 
 📂 Project Structure
-...bash
+
+```bash
 coffee-shop-sql-analysis/
 │
 ├── schema.sql      # Creates database tables
 ├── data.sql        # Inserts sample coffee shop data
 ├── analysis.sql    # SQL queries used for analysis
 └── README.md       # Project documentation
-...
+```
 
 📊 Example Business Questions
 
 SQL queries in this project answer questions such as:
+
 - What are the top selling products?
 - Which days generate the most revenue?
 - What are the best performing menu categories?
@@ -82,6 +87,7 @@ SQL queries in this project answer questions such as:
 🚀 Future Improvements
 
 Add indexes for faster queries
+
 - Create SQL views for reporting
 - Connect to Python for deeper analysis
 - Build Power BI or Tableau dashboards
@@ -89,6 +95,7 @@ Add indexes for faster queries
 🧠 Skills Demonstrated
 
 SQL Query Writing
+
 - Relational Database Design
 - Data Analysis with SQL
 - Data Aggregation and Filtering
