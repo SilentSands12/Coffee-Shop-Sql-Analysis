@@ -8,9 +8,9 @@ SQL project analyzing coffee shop sales data using real-world business questions
 
 ## 📌 Project Overview
 
-This project simulates a **real-world business scenario** where SQL is used to analyze sales data for a coffee shop.
+This project demonstrates **SQL data analysis** using a simulated coffee shop database.
 
-The database stores information about:
+The goal is to practice writing SQL queries that analyze:
 
 - Customer orders
 - Products
@@ -18,58 +18,80 @@ The database stores information about:
 - Quantities
 - Order dates
 
-Using SQL queries, the project explores sales patterns, product performance, and revenue insights.
+The project simulates a **real-world data environment** like what data analysts and SQL developers use.
 
 ---
 
-## 🧠 Skills Demonstrated
-
-- SQL data retrieval using `SELECT`
-- Filtering data with `WHERE`
-- Sorting results using `ORDER BY`
-- Aggregating data with `SUM`, `COUNT`, `AVG`
-- Business analysis using SQL queries
-
----
-
-## 📂 Project Structure
-
-```bash
-coffee-shop-sql-analysis
-│
-├── database.sql
-├── queries.sql
-└── README.md
-```
-
-### database.sql
-
-Creates the database schema and inserts sample order data.
-
-### queries.sql
-
-Contains SQL queries used to answer business questions.
-
----
-
-## 📊 Example Business Questions
-
-The SQL queries in this project answer questions such as:
-
-- What are the most frequently ordered products?
-- What is the total revenue generated?
-- Which products generate the most profit?
-- How many orders have been placed?
-
----
-
-## ⚙️ Technologies Used
+## 🛠 Technologies Used
 
 - SQL
-- Relational Databases
-- Query Optimization Concepts
+- MySQL
+- Visual Studio Code
+- Git & GitHub
 
 ---
+
+## 🗄 Database Setup
+
+This project uses a local **MySQL database server**.
+
+### 1️⃣ Install MySQL
+
+Download and install **MySQL Community Server**.  
+During installation:
+
+- Set a **root password**
+- Enable **MySQL Server**
+- Optionally install **MySQL Workbench** for GUI management
+
+### 2️⃣ Create the Database
+
+```sql
+CREATE DATABASE coffee_shop;
+
+### 3️⃣ Use the Database
+
+USE coffee_shop;
+...
+### 4️⃣ Run the SQL Scripts
+Run the included SQL files to:
+- Create tables
+- Insert sample data
+- Perform analysis
+
+📂 Project Structure
+...
+coffee-shop-sql-analysis/
+│
+├── schema.sql      # Creates database tables
+├── data.sql        # Inserts sample coffee shop data
+├── analysis.sql    # SQL queries used for analysis
+└── README.md       # Project documentation
+...
+
+📊 Example Business Questions
+
+SQL queries in this project answer questions such as:
+- What are the top selling products?
+- Which days generate the most revenue?
+- What are the best performing menu categories?
+- How does customer purchasing behavior change over time?
+
+🚀 Future Improvements
+
+Add indexes for faster queries
+- Create SQL views for reporting
+- Connect to Python for deeper analysis
+- Build Power BI or Tableau dashboards
+
+🧠 Skills Demonstrated
+
+SQL Query Writing
+- Relational Database Design
+- Data Analysis with SQL
+- Data Aggregation and Filtering
+- Working with a Real Database System
+- Version Control using Git
 
 ## 🚀 Purpose of This Project
 
