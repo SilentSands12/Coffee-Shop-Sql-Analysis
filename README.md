@@ -1,54 +1,82 @@
-Project Name
+<h1 align="center">☕ Coffee Shop SQL Analysis</h1>
 
-Coffee Shop Sales SQL Analysis
+<p align="center">
+SQL project analyzing coffee shop sales data using real-world business questions.
+</p>
 
-Description (put this in your README)
+---
 
-Project Summary
+## 📌 Project Overview
 
-This project simulates a real-world business scenario where SQL is used to analyze sales data for a coffee shop. The goal of the project is to practice fundamental SQL concepts by querying a small dataset and answering common business questions.
+This project simulates a **real-world business scenario** where SQL is used to analyze sales data for a coffee shop.
 
-The database stores information about customer orders, products, prices, quantities, and order dates. Using SQL queries, the project explores sales patterns, product performance, and revenue insights.
+The database stores information about:
 
-This project focuses on applying introductory SQL concepts such as retrieving data, filtering records, sorting results, and performing aggregate calculations.
+- Customer orders
+- Products
+- Prices
+- Quantities
+- Order dates
 
-Skills Demonstrated
+Using SQL queries, the project explores sales patterns, product performance, and revenue insights.
 
-SQL data retrieval using SELECT
+---
 
-Filtering data using WHERE
+## 🧠 Skills Demonstrated
 
-Sorting results with ORDER BY
+- SQL data retrieval using `SELECT`
+- Filtering data with `WHERE`
+- Sorting results using `ORDER BY`
+- Aggregating data with `SUM`, `COUNT`, `AVG`
+- Business analysis using SQL queries
 
-Data aggregation using SUM, AVG, COUNT, MAX
+---
 
-Basic business analysis using SQL
+## 📂 Project Structure
 
-Example Business Questions Solved
+coffee-shop-sql-analysis
+│
+├── database.sql
+├── queries.sql
+└── README.md
 
-What are the most frequently ordered products?
+### database.sql
 
-What is the total revenue generated?
+Creates the database schema and inserts sample order data.
 
-Which products are the most expensive?
+### queries.sql
 
-How many orders have been placed?
+Contains SQL queries used to answer business questions.
 
-Files Included
-database.sql
-queries.sql
-README.md
+---
 
-database.sql
+## 📊 Example Business Questions
 
-Creates the orders table
+The SQL queries in this project answer questions such as:
 
-Inserts sample data
+- What are the most frequently ordered products?
+- What is the total revenue generated?
+- Which products generate the most profit?
+- How many orders have been placed?
 
-queries.sql
+---
 
-Contains SQL queries used to answer business questions
+## ⚙️ Technologies Used
 
-README.md
+- SQL
+- Relational Databases
+- Query Optimization Concepts
 
-Explains the project and skills practiced
+---
+
+## 🚀 Purpose of This Project
+
+This project was created as part of my SQL learning journey to practice writing queries and applying SQL concepts to a practical dataset.
+
+The goal is to build a portfolio of SQL projects demonstrating **data analysis and database querying skills**.
+
+---
+
+<p align="center">
+⭐ If you found this project interesting, feel free to star the repo!
+</p>
