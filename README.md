@@ -37,7 +37,7 @@ This project uses a local **MySQL database server**.
 
 ### 1️⃣ Install MySQL
 
-Download and install **MySQL Community Server**.  
+Download and install **MySQL Community Server**.
 During installation:
 
 - Set a **root password**
