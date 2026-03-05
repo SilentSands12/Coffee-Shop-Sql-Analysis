@@ -48,11 +48,13 @@ During installation:
 
 ```sql
 CREATE DATABASE coffee_shop;
+...
 
 ### 3️⃣ Use the Database
-
+...sql
 USE coffee_shop;
 ...
+
 ### 4️⃣ Run the SQL Scripts
 Run the included SQL files to:
 - Create tables
@@ -60,7 +62,7 @@ Run the included SQL files to:
 - Perform analysis
 
 📂 Project Structure
-...
+...bash
 coffee-shop-sql-analysis/
 │
 ├── schema.sql      # Creates database tables
@@ -104,3 +106,4 @@ The goal is to build a portfolio of SQL projects demonstrating **data analysis a
 <p align="center">
 ⭐ If you found this project interesting, feel free to star the repo!
 </p>
+```
