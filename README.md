@@ -34,11 +34,13 @@ Using SQL queries, the project explores sales patterns, product performance, and
 
 ## 📂 Project Structure
 
+```
 coffee-shop-sql-analysis
 │
 ├── database.sql
 ├── queries.sql
 └── README.md
+```
 
 ### database.sql
 
