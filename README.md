@@ -34,7 +34,7 @@ Using SQL queries, the project explores sales patterns, product performance, and
 
 ## 📂 Project Structure
 
-```
+```bash
 coffee-shop-sql-analysis
 │
 ├── database.sql
