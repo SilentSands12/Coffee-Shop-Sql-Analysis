@@ -28,3 +28,45 @@ INSERT INTO orders (customer_id, product_id, quantity, order_date) VALUES
 (4, 2, 2, '2026-03-04'),
 (1, 3, 1, '2026-03-05'),
 (2, 4, 2, '2026-03-05');
+
+
+-- 2nd wave of data
+-- Add more customers (skip IDs, auto-increment handles them)
+INSERT INTO customers (name, email) VALUES
+    ('Ethan', 'ethan@mail.com'),
+    ('Fiona', 'fiona@mail.com'),
+    ('George', 'george@mail.com'),
+    ('Hannah', 'hannah@mail.com'),
+    ('Ian', 'ian@mail.com'),
+    ('Julia', 'julia@mail.com');
+    ('Sandra', 'sandra.lopez@gmail.com');
+
+-- Add more products
+INSERT INTO products (name, category, price) VALUES
+('Mocha', 'Coffee', 4.25),
+('Black Tea', 'Tea', 2.75),
+('Croissant', 'Snack', 2.00),
+('Muffin', 'Snack', 2.50);
+
+-- Add more orders
+INSERT INTO orders (customer_id, product_id, quantity, order_date) VALUES
+(1, 7, 2, '2026-03-06'),
+(2, 8, 1, '2026-03-06'),
+(3, 9, 2, '2026-03-06'),
+(4, 10, 1, '2026-03-07'),
+(5, 1, 2, '2026-03-07'),
+(6, 2, 3, '2026-03-07'),
+(7, 3, 1, '2026-03-08'),
+(8, 4, 2, '2026-03-08'),
+(9, 5, 1, '2026-03-08'),
+(10, 6, 2, '2026-03-09'),
+(1, 7, 1, '2026-03-09'),
+(2, 8, 2, '2026-03-10'),
+(3, 9, 3, '2026-03-10'),
+(4, 10, 1, '2026-03-10'),
+(5, 1, 2, '2026-03-11'),
+(6, 2, 1, '2026-03-11'),
+(7, 3, 2, '2026-03-11'),
+(8, 4, 1, '2026-03-12'),
+(9, 5, 2, '2026-03-12'),
+(10, 6, 3, '2026-03-12');
