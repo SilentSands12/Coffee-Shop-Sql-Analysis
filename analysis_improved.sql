@@ -90,7 +90,7 @@ Gary	14
 
 */
 
--- ** Added tab on columns for readability **
+-- ** Added tab space on columns for readability **
 
 SELECT
     a.customer_id,
@@ -102,3 +102,46 @@ LEFT JOIN orders as b
 GROUP BY a.customer_id, a.name
 ORDER BY total_items_ordered DESC
 LIMIT 3;
+
+-- 2️⃣ Aggregations & Grouping
+
+-- Write a query to get total quantity ordered per product.
+-- Added name column to GROUP BY clause to follow standard SQL rules across
+-- DBs and SQL servers
+
+SELECT
+    a.product_id,
+    a.name as product_name,
+    COALESCE(SUM(b.quantity), 0) as total_quantity
+FROM products as a
+LEFT JOIN orders as b
+    ON a.product_id = b.product_id
+GROUP BY a.product_id, a.name;
+
+
+-- How would you find the product that has been ordered the most in terms of quantity?
+-- Added name column to GROUP BY clause to follow standard SQL rules across
+-- DBs and SQL servers
+
+SELECT
+    a.name as product_name,
+    COALESCE(SUM(b.quantity), 0) as total_quantity
+FROM products as a
+JOIN orders as b
+    ON a.product_id = b.product_id
+GROUP BY a.product_id, a.name
+ORDER BY total_quantity DESC
+LIMIT 1;
+
+-- Find the total number of orders per customer, but only show customers who have more than 2 orders.
+-- Removed alias from HAVING clause to follow cross-DB/server-environment issues
+
+SELECT
+    a.customer_id,
+    a.name as customer_name,
+    COUNT(b.order_id) as total_orders
+FROM customers as a
+JOIN orders as b
+    ON a.customer_id = b.customer_id
+GROUP BY a.customer_id, a.name
+HAVING COUNT(b.order_id) > 2;

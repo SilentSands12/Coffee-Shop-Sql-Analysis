@@ -43,10 +43,12 @@ INSERT INTO customers (name, email) VALUES
 
 -- Add more products
 INSERT INTO products (name, category, price) VALUES
-('Mocha', 'Coffee', 4.25),
-('Black Tea', 'Tea', 2.75),
-('Croissant', 'Snack', 2.00),
-('Muffin', 'Snack', 2.50);
+    ('Mocha', 'Coffee', 4.25),
+    ('Black Tea', 'Tea', 2.75),
+    ('Croissant', 'Snack', 2.00),
+    ('Muffin', 'Snack', 2.50)
+    ('Cheese Danish', 'Snack', 3.50);
+
 
 -- Add more orders
 INSERT INTO orders (customer_id, product_id, quantity, order_date) VALUES
