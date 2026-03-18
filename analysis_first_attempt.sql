@@ -112,7 +112,8 @@ GROUP BY a.product_id
 ORDER BY total_quantity DESC
 LIMIT 1;
 
--- Find the total number of orders per customer, but only show customers who have more than 2 orders.
+-- Find the total number of orders per customer, but only show customers
+-- who have more than 2 orders.
 SELECT
     a.customer_id,
     a.name as customer_name,
@@ -170,12 +171,133 @@ JOIN orders as b
 GROUP BY a.customer_id, a.name
 ORDER BY SUM(b.quantity) DESC;
 
+-- 3️⃣ Advanced SQL / Functions
+-- Write a query that adds a calculated column total_price for each order\
+-- (quantity * price) and orders by highest total_price.
 
 SELECT
-    a.customer_id,
-    a.name as customer_name,
-    * as orders_information
-FROM customers as a
-WHERE a.customer_id = 3
-JOIN orders as b
-    ON a.customer_id = b.customer_id;
+    *,
+    (o.quantity * p.price) AS total_price
+FROM orders o
+JOIN products p
+    ON o.product_id = p.product_id
+ORDER BY total_price DESC;
+
+
+-- Use a date function to return the month and year of each order instead
+-- of the full date.
+
+SELECT
+    order_id,
+    YEAR(order_date) AS order_year,
+    MONTH(order_date) AS order_month,
+    date_format(order_date, '%m/%d/%Y') as formatted_date -- extra work
+FROM orders;
+
+
+
+-- Write a query that concatenates the customer’s name with the product
+-- name for all orders in the format: "Alice - Espresso".
+
+SELECT
+    o.order_id,
+    c.name AS customer_name, -- for confirmation purposes
+    p.name AS product_name, -- for confirmation purposes
+    CONCAT(c.name, ' - ', p.name) AS customer_with_product_name
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+JOIN products p
+    ON p.product_id = o.product_id
+ORDER BY o.order_id;
+
+/* Write a query that calculates the total amount each customer has spent
+(quantity * price), and return:
+
+customer_id
+
+customer_name
+
+total_spent
+
+👉 Only return the top 3 customers who spent the most.
+*/
+
+SELECT
+    c.customer_id,
+    c.name AS customer_name,
+    SUM(o.quantity * p.price) AS total_spent
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+JOIN products p
+    ON p.product_id = o.product_id
+GROUP BY c.customer_id, c.name
+ORDER BY total_spent DESC
+LIMIT 3;
+
+
+/* Write a query that returns the total revenue per month, including:
+
+year
+
+month
+
+total_revenue (quantity * price)
+
+👉 Order results by year, then month
+*/
+
+
+SELECT
+    EXTRACT(YEAR FROM order_date) AS order_year,
+    EXTRACT(MONTH FROM order_date) AS order_month,
+    SUM(quantity * price) as total_revenue
+FROM orders o
+JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)
+ORDER BY order_year, order_month;
+
+
+
+
+
+/*
+🔥 Bonus Challenge (if you want to push to 9/10)
+
+Try this after:
+
+👉 Return the top-selling product per month
+
+year
+
+month
+
+product_name
+
+total_quantity_sold
+*/
+
+WITH product_totals AS (
+    SELECT
+        EXTRACT(YEAR FROM o.order_date) AS order_year,
+        EXTRACT(MONTH FROM o.order_date) AS order_month,
+        p.name AS product_name,
+        SUM(o.quantity * p.price) AS product_total
+    FROM orders o
+    JOIN products p
+        ON o.product_id = p.product_id
+    GROUP BY
+        p.name,
+        EXTRACT(YEAR FROM o.order_date),
+        EXTRACT(MONTH FROM o.order_date)
+)
+SELECT *
+FROM product_totals pt
+WHERE product_total = (
+    SELECT MAX(product_total)
+    FROM product_totals
+    WHERE order_year = pt.order_year
+      AND order_month = pt.order_month
+);
