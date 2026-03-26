@@ -324,6 +324,7 @@ total_quantity_sold
 -- LEARNED about common table expressions and how to efficiently use
 -- with subqueries
 
+
 WITH product_totals AS (
     SELECT
         EXTRACT(YEAR FROM o.order_date) AS order_year,
