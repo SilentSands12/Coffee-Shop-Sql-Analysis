@@ -354,3 +354,201 @@ WHERE total_quantity_sold = (
 ORDER BY
     pt.order_year,
     pt.order_month;
+
+
+-- **************************** 4/7/26 ***************************
+-- 4️⃣  SQL Joins in Depth
+-- Write a query that adds a calculated column total_price for each order\
+-- (quantity * price) and orders by highest total_price.
+
+
+/*☕ 1. Basic INNER JOIN (foundation)
+
+👉 Real-world: “Show me what customers are buying”
+
+Write a query to return:
+
+customer name
+product name
+quantity
+order date
+
+Only include rows where a valid order exists.
+
+
+*/
+-- Capitalized AS keyword for consistency
+
+
+SELECT
+    c.name AS customer_name,
+    p.name AS product_name,
+    o.quantity,
+    p.price,
+    (p.price * o.quantity) AS total_price,
+    date_format(o.order_date, '%m/%d/%y') AS order_date
+FROM orders o
+JOIN products p
+    ON o.product_id = p.product_id
+JOIN customers c
+    ON o.customer_id = c.customer_id
+ORDER BY total_price DESC;
+
+
+/*☕ 2. Filtering with JOIN (slightly harder)
+
+👉 Real-world: “What coffee items are selling?”
+
+Return:
+
+customer name
+product name
+category
+quantity
+
+BUT only for products in the 'Coffee' category.
+Sort by quantity descending.
+
+*/
+-- Removed LOWER() function because of query performance
+-- Instead used like or = operator for increased speeds
+
+SELECT
+    c.name AS customer_name,
+    p.name AS product_name,
+    p.category,
+    o.quantity
+FROM orders o
+JOIN products p
+    ON o.product_id = p.product_id
+JOIN customers c
+    ON o.customer_id = c.customer_id
+WHERE
+    p.category LIKE 'coffee'
+ORDER BY
+    o.quantity DESC;
+
+
+/*☕ 3. LEFT JOIN (important concept)
+
+👉 Real-world: “Who hasn't bought anything yet?”
+
+Return all customers, including:
+
+customers with orders
+customers with NO orders
+
+Output:
+
+customer name
+order_id (if exists, otherwise NULL)
+
+*/
+
+
+-- No improvements needed
+
+SELECT
+    c.name AS customer_name,
+    o.order_id
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id;
+
+
+/*☕ 4. Multi-table JOIN + Aggregation (real job level)
+
+👉 Real-world: “How much money are we making per product?”
+
+Return:
+
+product name
+total quantity sold
+total revenue
+
+👉 Revenue = quantity * price
+
+Sort from highest revenue to lowest.
+
+*/
+
+
+-- Used qualified column name aka column reference instead of column alias for
+-- consistency and fewer DB issues
+
+SELECT
+    p.name AS product_name,
+    SUM(o.quantity) AS total_quantity_sold,
+    SUM(o.quantity * p.price) AS total_revenue
+FROM orders o
+JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY
+    p.name
+ORDER BY
+    total_revenue DESC;
+
+
+/*
+☕ 5. Advanced JOIN Scenario (challenging but realistic)
+
+👉 Real-world: “Top customer spending report”
+
+Return:
+
+customer name
+total number of orders
+total amount spent
+
+BUT:
+
+Only include customers who spent more than $20 total
+Sort by total spent descending
+🔥 Bonus (optional, but very good for interviews)
+
+👉 Real-world: “Find customers who bought the same product multiple times”
+
+Return:
+
+customer name
+product name
+total times they ordered it
+
+Only show results where they ordered the same product more than once.
+*/
+
+
+-- Removed customer id column from select since we only need it on GROUP BY
+-- ALSO did the same for product_id since its better to group by that primary key
+
+
+SELECT
+    c.name AS customer_name,
+    COUNT(o.order_id) AS total_orders,
+    SUM(o.quantity * p.price) AS total_amount_spent
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY
+    c.customer_id, c.name
+HAVING
+    SUM(o.quantity * p.price) > 20
+ORDER BY
+    total_amount_spent DESC;
+
+
+SELECT
+    c.name AS customer_name,
+    p.name AS product_name,
+    COUNT(o.product_id) AS total_times_ordered_item
+FROM customers c
+JOIN orders o
+    ON c.customer_id = o.customer_id
+JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY
+    c.customer_id, c.name, p.product_id, p.name
+HAVING
+    COUNT(o.product_id) > 1;
