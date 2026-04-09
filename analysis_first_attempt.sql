@@ -493,3 +493,123 @@ GROUP BY
     c.customer_id, c.name, p.name
 HAVING
     COUNT(o.product_id) > 1;
+
+
+-- **************************** 4/8/26 ***************************
+-- 5️⃣  Subqueries
+/*
+1. Subquery in WHERE (basic but important)
+
+👉 Real-world: “Which products are above average price?”
+
+Write a query to return:
+
+product name
+price
+
+BUT only include products where the price is greater than the average price of all products
+
+💡 Hint:
+
+You’ll need a subquery inside WHERE
+Something like price > (SELECT AVG(...))
+
+
+*/
+
+SELECT
+    p.name,
+    p.price
+FROM products p
+WHERE p.price >
+                (SELECT
+                    ROUND(AVG(p2.price),2) AS avg_product_price
+                FROM products p2);
+/*
+☕ 2. Subquery in FROM (derived table)
+
+👉 Real-world: “Which days perform the best?”
+
+Write a query to return:
+
+order_date
+total revenue per day
+
+BUT only return days where the daily revenue is above the average daily revenue
+
+💡 Breakdown:
+
+First: calculate revenue per day → (subquery in FROM)
+Then: compare each day to the average of those totals
+
+⚠️ This is where people get tripped up:
+You can’t directly use SUM() in WHERE → you need a subquery
+*/
+
+WITH daily_revenue_dt AS
+    (SELECT
+        DATE_FORMAT(order_date, "%m/%d/%Y") AS order_date,
+        SUM(p.price * o.quantity) AS total_revenue_per_day
+    FROM orders o
+    JOIN products p
+        ON o.product_id = p.product_id
+    GROUP BY DATE_FORMAT(order_date, "%m/%d/%Y"))
+
+SELECT
+    order_date,
+    total_revenue_per_day
+FROM daily_revenue_dt
+WHERE total_revenue_per_day > (SELECT AVG(total_revenue_per_day)
+                            FROM daily_revenue_dt);
+
+
+
+/*
+☕ 3. Correlated Subquery (most important / hardest)
+
+👉 Real-world: “Top purchase per customer”
+
+Write a query to return:
+
+customer name
+product name
+total amount spent on that product
+
+BUT only return the product each customer spent the MOST money on
+
+💡 Requirements:
+
+You must calculate spending per customer per product (quantity * price)
+Then compare that value per customer
+This is where a correlated subquery shines
+
+⚠️ This is tricky because:
+
+The subquery depends on the outer query (same customer)
+*/
+WITH prod_per_cust AS
+    -- Query that provides all products got by customers and thier total spent
+    (SELECT
+        p2.product_id,
+        p2.name as product_name,
+        c2.customer_id,
+        c2.name as customer_name,
+        SUM(p2.price * o2.quantity) AS total_product_spent
+    FROM products p2
+    JOIN orders o2
+        ON o2.product_id = p2.product_id
+    JOIN customers c2
+        ON c2.customer_id = o2.customer_id
+    GROUP BY p2.product_id, p2.name, c2.customer_id, c2.name
+    ORDER BY c2.customer_id)
+
+SELECT
+    ppc.customer_name,
+    ppc.product_name,
+    ppc.total_product_spent
+FROM prod_per_cust ppc
+WHERE ppc.total_product_spent = (
+    SELECT MAX(total_product_spent)
+    FROM prod_per_cust ppc2
+    WHERE ppc2.customer_id = ppc.customer_id
+);
